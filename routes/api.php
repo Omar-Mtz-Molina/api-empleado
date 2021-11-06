@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SignOutController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +21,9 @@ use Illuminate\Support\Facades\Route;
 return $request->user();
 }); */
 
-Route::group(['prefix' => 'auth'],function() {
+Route::group(['middleware' => 'api'],function($router) {
     Route::post('/signin', [LoginController::class, '__invoke']);
     Route::get('/info', [InfoController::class, '__invoke']);
     Route::post('/signout', [SignOutController::class, '__invoke']);
+    Route::get('/getProfile', [ProfileController::class, 'getProfile']);
 });

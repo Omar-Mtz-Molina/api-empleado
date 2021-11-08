@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\SignOutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PayrollController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,6 @@ Route::group(['middleware' => 'api'],function($router) {
     Route::get('/info', [InfoController::class, '__invoke']);
     Route::post('/signout', [SignOutController::class, '__invoke']);
     Route::get('/getProfile', [ProfileController::class, 'getProfile']);
+    Route::get('/getMonths', [PayrollController::class, 'getMonths']);
+    Route::post('/getPayroll', [PayrollController::class, 'getPayroll']);
 });

@@ -16,11 +16,10 @@ class UserSeeder extends Seeder
     {
         //
         DB::table('users')->insert([
-            'name' => 'Ramon Quiroz Trujillo',
-            'employee_code' =>  '02542902',
-            'email' => 'rquiroz@iusa.com.mx',
-            'password' => bcrypt('her5x')
-
+            'name' => 'AMAIRANI SARAI ALBINO ERASMO',
+            'employee_code' =>  '6053779',
+            'email' => 'asalbino@iusa.com.mx',
+            'password' => bcrypt('0xs51')
         ]);
     }
 }

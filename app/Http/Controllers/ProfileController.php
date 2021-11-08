@@ -17,7 +17,7 @@ class ProfileController extends Controller
     {
         $code = auth()->user()->employee_code;
         try {
-            $servicio1 = "http://172.16.176.25/webservices/POREMP_Des_Datos_Portalemp/Datos_Portalemp.asmx?WSDL";
+            $servicio1 = "http://172.16.171.10/webservices/POREMP_Pro_Datos_Portalemp/Datos_Portalemp.asmx?WSDL";
             $parametros1 = array();
             $parametros1['P_PERNR'] = $code;
             $client1 = new SoapClient($servicio1, array('cache_wsdl' => WSDL_CACHE_NONE, 'trace' => true));

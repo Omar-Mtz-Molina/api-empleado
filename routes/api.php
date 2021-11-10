@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeOfficeWeekController;
 use App\Http\Controllers\InfoController;
-use App\Http\Controllers\SignOutController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SignOutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,11 +23,24 @@ use Illuminate\Support\Facades\Route;
 return $request->user();
 }); */
 
-Route::group(['middleware' => 'api'],function($router) {
-    Route::post('/signin', [LoginController::class, '__invoke']);
+// Acceso al Portal Empleados IUSA
+Route::post('/signin', [LoginController::class, '__invoke']);
+
+Route::group(['middleware' => 'auth:api'], function ($router) {
+    // Acceso al Portal Empleados IUSA
     Route::get('/info', [InfoController::class, '__invoke']);
     Route::post('/signout', [SignOutController::class, '__invoke']);
+    //Perfil de Usuarios
     Route::get('/getProfile', [ProfileController::class, 'getProfile']);
+    //Recibos de Nómina
     Route::get('/getMonths', [PayrollController::class, 'getMonths']);
     Route::post('/getPayroll', [PayrollController::class, 'getPayroll']);
+    //Evaluaciones Semanales
+    Route::post('/hoWeek', [HomeOfficeWeekController::class, 'hoWeek']);
+    Route::get('/hoWeekReviews', [HomeOfficeWeekController::class, 'hoWeekReviews']);
+    Route::post('/hoWeekDirector', [HomeOfficeWeekController::class, 'hoWeekDirector']);
+    Route::get('/hoAreaReview', [HomeOfficeWeekController::class, 'hoAreaReview']);
+    Route::get('/hoAreas', [HomeOfficeWeekController::class, 'hoAreas']);
+    Route::post('/hoWeekDirectorTeam', [HomeOfficeWeekController::class, 'hoWeekDirectorTeam']);
+    //Evaluaciones Personales
 });

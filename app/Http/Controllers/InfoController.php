@@ -15,7 +15,6 @@ class InfoController extends Controller
     public function __invoke(Request $request)
     {
         $user = $request->user();
-        //dd(auth()->user()->employee_code);
         return response()->json([
             'email' => $user->email,
             'name' => $user->name,

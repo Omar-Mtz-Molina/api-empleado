@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeOfficeStatusController;
 use App\Http\Controllers\HomeOfficeWeekController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\LoginController;
@@ -29,6 +30,7 @@ Route::post('/signin', [LoginController::class, '__invoke']);
 Route::group(['middleware' => 'auth:api'], function ($router) {
     // Acceso al Portal Empleados IUSA
     Route::get('/info', [InfoController::class, '__invoke']);
+    Route::get('/hoStatus', [HomeOfficeStatusController::class, 'hoStatus']);
     Route::post('/signout', [SignOutController::class, '__invoke']);
     //Perfil de Usuarios
     Route::get('/getProfile', [ProfileController::class, 'getProfile']);
@@ -40,7 +42,7 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::get('/hoWeekReviews', [HomeOfficeWeekController::class, 'hoWeekReviews']);
     Route::post('/hoWeekDirector', [HomeOfficeWeekController::class, 'hoWeekDirector']);
     Route::get('/hoAreaReview', [HomeOfficeWeekController::class, 'hoAreaReview']);
-    Route::get('/hoAreas', [HomeOfficeWeekController::class, 'hoAreas']);
+    Route::post('/hoAreas', [HomeOfficeWeekController::class, 'hoAreas']);
     Route::post('/hoWeekDirectorTeam', [HomeOfficeWeekController::class, 'hoWeekDirectorTeam']);
     //Evaluaciones Personales
 });

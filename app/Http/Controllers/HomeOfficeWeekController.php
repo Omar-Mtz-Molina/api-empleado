@@ -89,14 +89,38 @@ class HomeOfficeWeekController extends Controller
 
     }
 
+    /* public function hoAreaReview()
+    {
+    $reviews = DB::connection('mysql_main')->table('evaluacion_areas_encuesta as eav')
+    ->select('eav.id_encuesta_a', 'eav.nombre_encuesta')
+    ->orderBy('eav.id_encuesta_a', 'DESC')
+    ->get();
+    return response()->json(
+    $reviews
+    );
+    } */
+
     public function hoAreaReview()
     {
+        $data_array = array();
+        $moths = array("En.", "Febr.", "Mzo.", "Abr", "My", "Jun.", "Jul", "Agt.", "Sept.", "Oct.", "Nov.", "Dic.");
         $reviews = DB::connection('mysql_main')->table('evaluacion_areas_encuesta as eav')
-            ->select('eav.id_encuesta_a', 'eav.nombre_encuesta')
+            ->select('eav.id_encuesta_a', 'eav.nombre_encuesta', 'eav.fecha_inicio', 'eav.fecha_fin')
             ->orderBy('eav.id_encuesta_a', 'DESC')
             ->get();
+        foreach ($reviews as $row) {
+            $getDayStart = date("d", strtotime($row->fecha_inicio));
+            $getMonthStart = date("m", strtotime($row->fecha_inicio));
+            $getYearStart = date("y", strtotime($row->fecha_inicio));
+            $getDayEnd = date("m", strtotime($row->fecha_fin));
+            $getMonthEnd = date("m", strtotime($row->fecha_fin));
+            $getYearEnd = date("y", strtotime($row->fecha_fin));
+            $dateBetween = $getDayStart . " " . $moths[$getMonthStart - 1] . " " . $getYearStart . " - " . $getDayEnd . " " . $moths[$getMonthEnd - 1] . " " . $getYearEnd;
+            $data_array[] = array("id_poll" => $row->id_encuesta_a, "name_poll" => $row->nombre_encuesta, "date" => $dateBetween);
+        }
+
         return response()->json(
-            $reviews
+            $data_array
         );
     }
 

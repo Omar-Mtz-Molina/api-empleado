@@ -7,22 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class HomeOfficeWeekController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware(['auth:api']);
     }
-
-    /* public function hoWeekReviews(Request $request)
-    {
-    $reviews = DB::connection('mysql_main')->table('evaluacion_encuesta as ev')
-    ->select('ev.id_encuesta', 'ev.nombre_encuesta')
-    ->orderBy('ev.id_encuesta', 'DESC')
-    ->get();
-    return response()->json(
-    $reviews
-    );
-    } */
 
     public function hoWeekReviews(Request $request)
     {
@@ -66,8 +54,8 @@ class HomeOfficeWeekController extends Controller
     public function hoWeekDirector(Request $request)
     {
         $data_arr = array();
-        $noempleado = '6053779';
-        $id_poll = 99;
+        $noempleado = auth()->user()->employee_code;
+        $id_poll = $request->id_poll;
         $director = DB::connection('mysql_main')->table('usuarios_evaluacion as ue')
             ->select('ue.id_director')
             ->where('ue.no_empleado', '=', $noempleado)
@@ -88,17 +76,6 @@ class HomeOfficeWeekController extends Controller
         return response()->json($data_arr);
 
     }
-
-    /* public function hoAreaReview()
-    {
-    $reviews = DB::connection('mysql_main')->table('evaluacion_areas_encuesta as eav')
-    ->select('eav.id_encuesta_a', 'eav.nombre_encuesta')
-    ->orderBy('eav.id_encuesta_a', 'DESC')
-    ->get();
-    return response()->json(
-    $reviews
-    );
-    } */
 
     public function hoAreaReview()
     {
@@ -127,7 +104,7 @@ class HomeOfficeWeekController extends Controller
     public function hoAreas(Request $request)
     {
         $data_arr = array();
-        $id_poll = 78;
+        $id_poll = $request->id_poll;
         $areas = DB::connection('mysql_main')->table('areas')
             ->select('id_area', 'area')
             ->where('activa', '=', 1)
@@ -152,8 +129,8 @@ class HomeOfficeWeekController extends Controller
     public function hoWeekDirectorTeam(Request $request)
     {
         $data_arr = array();
-        $noempleado = '6038164';
-        $id_poll = 99;
+        $noempleado = auth()->user()->employee_code;
+        $id_poll = $request->id_poll;
         $director = DB::connection('mysql_main')->table('usuarios_evaluacion as ue')
             ->select('ue.id_usuariosev')
             ->where('ue.no_empleado', '=', $noempleado)

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeOfficePersonalController;
 use App\Http\Controllers\HomeOfficeStatusController;
 use App\Http\Controllers\HomeOfficeWeekController;
 use App\Http\Controllers\InfoController;
@@ -45,4 +46,10 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::post('/hoAreas', [HomeOfficeWeekController::class, 'hoAreas']);
     Route::post('/hoWeekDirectorTeam', [HomeOfficeWeekController::class, 'hoWeekDirectorTeam']);
     //Evaluaciones Personales
+    Route::get('/getHOPersonalPoll', [HomeOfficePersonalController::class, 'getHOPersonalPoll']);
+    Route::get('/getSections', [HomeOfficePersonalController::class, 'getSections']);
+    Route::post('/HOPersonalQuestions', [HomeOfficePersonalController::class, 'HOPersonalQuestions']);
+    Route::post('/HOPersonalConclusion', [HomeOfficePersonalController::class, 'HOPersonalConclusion']);
+    Route::post('/HOPersonalAnswareFather', [HomeOfficePersonalController::class, 'HOPersonalAnswareFather']);
+    Route::post('/HOPersonalAnswareChild', [HomeOfficePersonalController::class, 'HOPersonalAnswareChild']);
 });
